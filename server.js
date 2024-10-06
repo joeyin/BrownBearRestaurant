@@ -4,9 +4,21 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+// Serve static files from the "public" directory
+app.use(express.static('public'));
+
+
+//Sign In page
+app.get("/signin", (req, res) => {
+    return res.render("signIn.ejs")
+})
+
+
 // RESTAURANT_WEBSITE
 //Create a website that customers use to view information about the restaurant and order items.
-
+app.get("/", (req, res) => {
+    return res.render("restaurant.ejs")
+})
 
 
 

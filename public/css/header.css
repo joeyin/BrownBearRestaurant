@@ -1,0 +1,42 @@
+header {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    /* Pushes items to both ends */
+    align-items: center;
+    padding: 30px 50px;
+    font-weight: bold;
+    border-bottom: 1px solid rgb(32, 33, 36);
+}
+
+.account-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.heder_left {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.account-container img{
+    width: 36px;
+}
+
+header a{
+    text-decoration: none;
+    color: black;
+}
+header a:visited {
+    color: black;
+}
+
+header a:hover {
+    color: black;
+}
+
+header a:active {
+    color: black;
+}
