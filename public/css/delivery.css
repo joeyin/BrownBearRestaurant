@@ -1,0 +1,89 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", system-ui;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main {
+    flex-grow: 1;
+}
+
+.restaurant_info {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    background-color: rgb(32, 33, 36);
+    color: white;
+    align-items: center;
+    font-weight: 400;
+}
+
+.restaurant_info img {
+    height: 20px;
+}
+
+.menu_head {
+    display: flex;
+    padding: 0 35px;
+    margin: 0;
+    gap: 10px;
+}
+
+.menu_head img {
+    flex-shrink: 0;
+    width: auto;
+    height: 33px;
+}
+
+.menu_head h1 {
+    margin: 0;
+}
+
+.menu_items {
+    display: flex;
+    padding: 20px;
+    flex-wrap: wrap;
+    gap: 20px
+}
+
+.menu_item {
+    display: flex;
+    flex-direction: column;
+    transform: scale(1);
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 9px rgba(0, 0, 0, .15);
+    margin-bottom: 5px;
+}
+
+.menu_item img{
+    width: 400px;
+    height: 400px;
+    transition: transform 1.5s ease;
+}
+
+.menu_item img:hover {
+    transform: scale(1.1); /* Magnifies the image by 1.5 times */
+}
+
+.caption h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: #202124;
+}
+
+.caption p {
+    color: #202124;
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.5;
+}

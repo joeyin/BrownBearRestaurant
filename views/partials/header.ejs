@@ -1,12 +1,12 @@
 <header>
     <div class="heder_left">
         <img src="/img/kfcLogo.svg" alt="KFC LOGO">
-        <a href="">Menu</a>
+        <a title="Home" href="/">Home</a>
         <%if (username && userType === 'customer') {%>
         <a href="">Orders</a>
         <%}%>
         <%if (username && userType === 'deliveryman') {%>
-        <a href="">Delivery</a>
+        <a title="Open Orders" href="/delivery">Open Orders</a>
         <%}%>
         <%if (username && userType === 'admin') {%>
         <a href="">Admin Panel</a>

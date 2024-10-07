@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const userRoutes = require('./routes/users');
+const deliveryRoutes = require('./routes/delivery');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -29,6 +30,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Routes
 app.use('/users', userRoutes);
+app.use('/delivery', deliveryRoutes);
 
 // Serve static files from the "public" directory
 app.use(express.static('public'));
@@ -75,8 +77,12 @@ app.get("/", (req, res) => {
 
 // DELIVERY_DRIV
 // Create a website that allows users to register as a delivery driver for the restaurant
-
-
+// app.get("/delivery", (req, res) => {
+//     return res.render("delivery/index.ejs", {
+//         username: req.session.loggedInUser ? req.session.loggedInUser.username : null,
+//         userType: req.session.loggedInUser ? req.session.loggedInUser.usertype : null
+//     });
+// });
 
 
 
