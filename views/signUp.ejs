@@ -7,7 +7,7 @@
     <title>KFC</title>
     <link rel="icon" href="/img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/css/restaurant.css">
-    <link rel="stylesheet" type="text/css" href="/css/signIn.css">
+    <link rel="stylesheet" type="text/css" href="/css/signUp.css">
     <link rel="stylesheet" type="text/css" href="/css/header.css">
     <link rel="stylesheet" type="text/css" href="/css/footer.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,13 +21,13 @@
     <div class="container">
         <%- include('partials/header') %>
             <div class="main">
-                <div class="login_head">
+                <div class="signup_head">
                     <img src="/img/Stripes_OffersIcon.svg" alt="" class="stripes-img">
-                    <h1 class="kfc-menu-title">Sign In</h1>
+                    <h1 class="kfc-menu-title">Sign Up</h1>
                 </div>
-                <div class="login_container">
-                    <div class="login_form">
-                        <form action="/users/login" method="POST">
+                <div class="signup_container">
+                    <div class="signup_form">
+                        <form action="/users/signup" method="POST">
                             <div class="form-group">
                                 <label for="email">Email:</label>
                                 <input type="email" id="email" name="email" required placeholder="Enter your email"
@@ -39,27 +39,29 @@
                                     placeholder="Enter your password" class="form-control">
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn-submit">Sign In</button>
+                                <label for="re_password">Retype Password:</label>
+                                <input type="password" id="re_password" name="re_password" required
+                                    placeholder="Retype your password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="re_password">User Type:</label>
+                                <select id="userType" name="userType" required>
+                                    <option value="customer">Customer</option>
+                                    <option value="deliveryman">Deliveryman</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn-submit">Sign Up</button>
                             </div>
                         </form>
                         <div class="signup-link">
-                            <p>Don't have an account? <a href="/signup">Sign up here</a>.</p>
+                            <p>Already have an account? <a href="/signin">Sign in here</a>.</p>
                         </div>
                     </div>
                 </div>
             </div>
             <%- include('partials/footer') %>
     </div>
-    <script>
-        // Check if there's a message in the URL query parameters
-        const params = new URLSearchParams(window.location.search);
-        const message = params.get('message');
-
-        // If a message exists, show it in an alert
-        if (message) {
-            alert(message);
-        }
-    </script>
 </body>
 
 </html>

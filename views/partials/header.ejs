@@ -2,11 +2,23 @@
     <div class="heder_left">
         <img src="/img/kfcLogo.svg" alt="KFC LOGO">
         <a href="">Menu</a>
+        <%if (username && userType === 'customer') {%>
         <a href="">Orders</a>
+        <%}%>
+        <%if (username && userType === 'deliveryman') {%>
         <a href="">Delivery</a>
+        <%}%>
+        <%if (username && userType === 'admin') {%>
         <a href="">Admin Panel</a>
+        <%}%>
     </div>
-    <a href="/signin"><div class="account-container" data-testid="account-container"><img loading="lazy"
+    <%if (username) {%>
+        <a href="/users/logout"><div class="account-container" data-testid="account-container"><img loading="lazy"
+                src="/img/Account_Icon.svg"
+                alt="" class="account-icon"><span class="sign-in-text ">Log Out</span></div></a>
+    <%}else{%>
+        <a href="/signin"><div class="account-container" data-testid="account-container"><img loading="lazy"
             src="/img/Account_Icon.svg"
             alt="" class="account-icon"><span class="sign-in-text ">Sign In</span></div></a>
+    <%}%>
 </header>
