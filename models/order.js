@@ -8,7 +8,7 @@ const orderSchema = new mongoose.Schema(
       required: true
     },
     customer_name: {
-      type: String, 
+      type: String,
       required: true
     },
     product: {
@@ -28,7 +28,11 @@ const orderSchema = new mongoose.Schema(
       enum: ['Ready For Delivery', 'In Transit', 'Delivered'],
       default: 'Ready For Delivery'
     },
-    shippingAddress: { type: String, required: true }
+    shippingAddress: { type: String, required: true },
+    driver: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
   { timestamps: true }
 );

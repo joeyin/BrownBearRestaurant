@@ -16,29 +16,48 @@
 <body>
   <%- include('../partials/header') %>
   <main>
-    <div class="container">
-      <div class="main">
-        <form method="POST" action="/delivery/<%= order._id %>" enctype="multipart/form-data">
-          <div class="form-control">
-            <label for="id">Order ID</label>
-            <input disabled id="id" name="id" value="<%= order._id %>">
-          </div>
-          <div class="form-control">
-            <label for="status">Status</label>
-            <select id="status" name="status" value="<%= order.status %>">
-              <option value="Pending">Pending</option>
-              <option value="In Transit">In Transit</option>
-              <option value="Delivered">Delivered</option>
-            </select>
-          </div>
-          <div class="form-control">
+    <div class="container p-5">
+      <form class="rounded-2xl shadow-sm p-5" method="POST" action="/delivery/<%= order._id %>" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="id">Order ID</label>
+          <input disabled id="id" name="id" value="<%= order._id %>">
+        </div>
+        <div class="form-group">
+          <label for="status">Status <%= order.status %></label>
+          <select id="status" name="status" <%= order.status === 'Delivered' ? 'disabled' : '' %>>
+            <option disabled value="Pending" <%= order.status === 'Ready For Delivery' ? 'selected' : '' %>>Pending</option>
+            <option <%= order.status === 'In Transit' ? 'disabled' : '' %> value="In Transit" <%= order.status === 'In Transit' ? 'selected' : '' %>>In Transit</option>
+            <option <%= order.status !== 'In Transit' ? 'disabled' : '' %> value="Delivered" <%= order.status === 'Delivered' ? 'selected' : '' %>>Delivered</option>
+          </select>
+        </div>
+        <% if(order.status === "Delivered"){ %>
+          <div class="form-group">
             <label for="photo">Photo</label>
-            <input type="file" id="photo" name="photo" accept="image/*" />
             <img src="<%= order.photo %>">
           </div>
-          <button type="submit">Update</button>
-        </form>
-      </div>
+          <% } %>
+        <% if(order.status === "In Transit"){ %>
+        <div class="form-group">
+          <label for="photo">Photo</label>
+          <input required type="file" id="photo" name="photo" accept="image/*" />
+        </div>
+        <% } %>
+        <div class="form-group">
+          <label for="name">Customer Name</label>
+          <input disabled id="name" name="name" value="<%= order.customer_name %>">
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input disabled id="address" name="address" value="<%= order.shippingAddress %>">
+        </div>
+        <div class="form-group">
+          <label for="amount">Total Amount</label>
+          <input disabled id="amount" name="amount" value="<%= order.totalAmount %>">
+        </div>
+        <% if(order.status !== "Delivered"){ %>
+        <button type="submit" class="large primary text-white">Update</button>
+        <% } %>
+      </form>
     </div>
   </main>
   <%- include('../partials/footer') %>

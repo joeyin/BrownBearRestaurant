@@ -332,3 +332,43 @@ main > .container > .header {
 footer nav a:not(:first-child):before {
   content: "• ";
 }
+
+.tab {
+  border-bottom: 1px solid #ccc;;
+}
+
+.tab a {
+  padding: 15px 20px;
+}
+
+.tab .active {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  table-layout: auto;
+}
+
+table th {
+  background-color: #d51920;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+table td {
+  color: #333;
+  font-size: 14px;
+}
+
+table th,
+table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 16px;
+}

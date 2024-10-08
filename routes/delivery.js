@@ -31,9 +31,9 @@ const findOrders = async (parameters = {}) => {
 router.get("/", isAuthenticated, async (req, res) => {
   try {
     const orders = await findOrders({ status: "Ready For Delivery" });
-    console.log(orders)
     return res.render("../views/delivery/index.ejs", {
       orders,
+      status: "pending",
       username: req.session.loggedInUser
         ? req.session.loggedInUser.username
         : null,
@@ -46,11 +46,36 @@ router.get("/", isAuthenticated, async (req, res) => {
   }
 });
 
-router.get("/shippings", isAuthenticated, async (req, res) => {
+router.get("/in-transit", isAuthenticated, async (req, res) => {
   try {
-    const orders = await findOrders({ status: "In Transit" });
+    const orders = await findOrders({
+      status: "In Transit",
+      driver: req.session.loggedInUser._id,
+    });
     return res.render("../views/delivery/index.ejs", {
       orders,
+      status: "in-transit",
+      username: req.session.loggedInUser
+        ? req.session.loggedInUser.username
+        : null,
+      userType: req.session.loggedInUser
+        ? req.session.loggedInUser.usertype
+        : null,
+    });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.get("/delivered", isAuthenticated, async (req, res) => {
+  try {
+    const orders = await findOrders({
+      status: "Delivered",
+      driver: req.session.loggedInUser._id,
+    });
+    return res.render("../views/delivery/index.ejs", {
+      orders,
+      status: "delivered",
       username: req.session.loggedInUser
         ? req.session.loggedInUser.username
         : null,
@@ -66,6 +91,9 @@ router.get("/shippings", isAuthenticated, async (req, res) => {
 router.get("/:id", isAuthenticated, async (req, res) => {
   try {
     const order = await findOrders({ _id: req.params.id });
+    if (!order.length) {
+      return res.status(404).json({ message: "Order not found" });
+    }
     res.render("../views/delivery/detail.ejs", {
       order: order?.[0],
       username: req.session.loggedInUser
@@ -83,10 +111,10 @@ router.get("/:id", isAuthenticated, async (req, res) => {
 router.post("/:id", isAuthenticated, upload.single("photo"), async (req, res) => {
   try {
     const file = req.file;
-    console.log(file)
     const result = await Order.findByIdAndUpdate(req.params.id, {
       ...req.body,
       ...(file && { photo: `/uploads/${file.filename}` }),
+      driver: req.session.loggedInUser._id,
     });
     if (!result) {
       return res.status(404).json({ message: "Order not found" });

@@ -16,15 +16,22 @@
 <body>
   <%- include('../partials/header') %>
   <main>
-    <div class="container">
+    <div class="container p-5">
+
+      <div class="tab flex">
+        <a class="<%= status === 'pending' ? 'active' : '' %>" href="/delivery">Ready For Delivery</a>
+        <a class="<%= status === 'in-transit' ? 'active' : '' %>" href="/delivery/in-transit">In Transit</a>
+        <a class="<%= status === 'delivered' ? 'active' : '' %>" href="/delivery/delivered">Delivered</a>
+      </div>
+
       <table width="100%">
         <thead>
           <tr>
-            <td>ID</td>
-            <td>Status</td>
-            <td>Amount</td>
-            <td>Product</td>
-            <td>Address</td>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Amount</th>
+            <th>Product</th>
+            <th>Address</th>
           </tr>
         </thead>
         <% for (let i=0; i < orders.length; i++) { %>
