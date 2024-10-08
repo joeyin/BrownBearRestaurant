@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KFC</title>
+    <link rel="icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <%- include('partials/header') %>
+    <main>
+        <div class="w-full bg-black flex flex-wrap text-white p-5 gap-5 lg-justify-center box-border">
+            <div class="flex gap-3 items-center">
+                <img width="18" src="/img/MapLocation.svg" alt="Location">
+                <p>Restaurant Address: 900 Dufferin Street (Street level)</p>
+            </div>
+            <div class="flex gap-3 items-center">
+                <img width="18" src="/img/clock.svg" alt="Working Hour">
+                <p>Working Hour: 9:00am - 5:00pm</p>
+            </div>
+        </div>
+        <div class="container">
+            <h1 class="header">MENU</h1>
+            <div class="grid grid-cols-1 md-grid-cols-2 lg-grid-cols-3 gap-5">
+                <% for (let i of products) {%>
+                <a href="/orderform/<%=i._id%>">
+                    <div class="flex flex-col p-5 rounded-2xl shadow-sm min-h-400px">
+                        <img src="<%=i.imgsrc%>" class="w-full hover-scale-sm transition-default">
+                        <div class="flex flex-col gap-2">
+                            <h3><%=i.name%></h3>
+                            <p class="font-normal text-base">$<%=i.price%></p>
+                            <p class="font-normal text-sm"><%=i.describtion%></p>
+                        </div>
+                    </div>
+                </a>
+                <%}%>
+            </div>
+        </div>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+
+</html>

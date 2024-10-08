@@ -6,25 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KFC</title>
     <link rel="icon" href="/img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="/css/restaurant.css">
-    <link rel="stylesheet" type="text/css" href="/css/signIn.css">
-    <link rel="stylesheet" type="text/css" href="/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/css/footer.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
-        <%- include('partials/header') %>
-            <div class="main">
-                <div class="login_head">
-                    <img src="/img/Stripes_OffersIcon.svg" alt="" class="stripes-img">
-                    <h1 class="kfc-menu-title">Sign In</h1>
-                </div>
+    <%- include('../partials/header') %>
+        <main>
+            <div class="container">
+                <h1 class="header">Sign In</h1>
                 <div class="login_container">
                     <div class="login_form">
                         <form action="/users/login" method="POST">
@@ -48,8 +41,8 @@
                     </div>
                 </div>
             </div>
-            <%- include('partials/footer') %>
-    </div>
+        </main>
+    <%- include('../partials/footer') %>
     <script>
         // Check if there's a message in the URL query parameters
         const params = new URLSearchParams(window.location.search);

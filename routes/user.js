@@ -9,6 +9,22 @@ function validateInput(body) {
     }
 }
 
+//Sign In page
+router.get("/signin", (req, res) => {
+    return res.render("user/signIn.ejs", {
+        username: req.session.loggedInUser ? req.session.loggedInUser.username : null,
+        userType: req.session.loggedInUser ? req.session.loggedInUser.usertype : null
+    })
+})
+
+//Sign Up page
+router.get("/signup", (req, res) => {
+    return res.render("user/signUp.ejs", {
+        username: req.session.loggedInUser ? req.session.loggedInUser.username : null,
+        userType: req.session.loggedInUser ? req.session.loggedInUser.usertype : null
+    })
+})
+
 router.post('/signup', async (req, res) => {
     try {
         validateInput(req.body)

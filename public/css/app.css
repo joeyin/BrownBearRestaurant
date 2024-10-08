@@ -1,0 +1,295 @@
+:root {
+  --primary: #e4002b;
+  --secondary: #13181f;
+  --white: #fff;
+  --black: #000;
+  --dark: #202124;
+
+  --header-height: 97px;
+  --footer-height: 160px;
+}
+
+html, body, h1, h2, h3, p, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--black);
+  font-weight: bold;
+  transition-property: all;
+  transition-duration: .6s;
+}
+
+a:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+html, body {
+  font-family: "Roboto", system-ui;
+  font-weight: 100;
+  font-style: normal;
+}
+
+button.large {
+  padding: 12px;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color .3s ease;
+}
+
+button.primary {
+  background-color: var(--primary);
+}
+
+button.primary:hover {
+  background-color: #E03E00;
+}
+
+main {
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+  padding: 0 0 35px;
+}
+
+main > .container > .header {
+  display: flex;
+  margin: 0 0 30px;
+  gap: 10px;
+  background-size: auto 34px;
+  background-image: url(/img/Stripes_OffersIcon.svg);
+  background-repeat: no-repeat;
+  padding-left: 110px;
+}
+
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-none {
+  flex: none;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.mr-3 {
+  margin-right: .75rem;;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.bg-black {
+  background-color: var(--black);
+}
+
+.p-5 {
+  padding: 20px;
+}
+
+.gap-2 {
+  gap: .5rem;
+}
+
+.gap-3 {
+  gap: .75rem;
+}
+
+.gap-5 {
+  gap: 1.25rem;
+}
+
+.text-white {
+  color: var(--white);
+}
+
+.justify-center	{
+  justify-content: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
+.rounded-full {
+  border-radius: 100%;
+}
+
+.shadow-sm {
+  box-shadow: 0 2px 9px rgba(0, 0, 0, .15);
+}
+
+.transition-default	{
+  transition: transform .6s ease;
+}
+
+.hover-scale-sm:hover {
+  transform: scale(1.1);
+}
+
+.min-h-400px {
+  min-height: 400px;
+}
+
+.box-border	{
+  box-sizing: border-box;
+}
+
+.border {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.border-b {
+  border-width: 0 0 1px;
+  border-style: solid;
+}
+
+.border-black {
+  border-color: var(--black);
+}
+
+.border-white {
+  border-color: var(--white);
+}
+
+.py-7 {
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+}
+
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.font-extralight {
+  font-weight: 200;
+}
+
+.font-light	{
+  font-weight: 300;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.text-sm {
+  font-size: .875rem;
+}
+
+.text-base {
+  font-size: 1rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+
+.m-auto {
+  margin: auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+  .md-flex-1  {
+    flex: 1;
+  }
+  .md-grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .lg-flex-1  {
+    flex: 1;
+  }
+  .lg-grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .lg-justify-center	{
+    justify-content: center;
+  }
+  .lg-flex-row {
+    flex-direction: row;
+  }
+}
+
+.social {
+  width: 40px;
+  height: 40px;
+}
+
+footer nav a:not(:first-child):before {
+  content: "• ";
+}

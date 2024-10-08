@@ -1,24 +1,28 @@
-<header>
-    <div class="heder_left">
-        <img src="/img/kfcLogo.svg" alt="KFC LOGO">
-        <a title="Home" href="/">Home</a>
-        <%if (username && userType === 'customer') {%>
-        <a href="/orders">Orders</a>
-        <%}%>
-        <%if (username && userType === 'deliveryman') {%>
-        <a title="Open Orders" href="/delivery">Open Orders</a>
-        <%}%>
-        <%if (username && userType === 'admin') {%>
-        <a href="/admin">Admin Panel</a>
+<header class="border-b border-black py-7">
+    <div class="container flex justify-between">
+        <div class="flex gap-5 items-center">
+            <img src="/img/kfcLogo.svg" alt="KFC">
+            <a title="Home" href="/">Home</a>
+            <%if (username && userType==='customer' ) {%>
+                <a href="/orders">Orders</a>
+            <%}%>
+            <%if (username && userType==='deliveryman' ) {%>
+                <a title="Open Orders" href="/delivery">Open Orders</a>
+            <%}%>
+            <%if (username && userType==='admin' ) {%>
+                <a href="/admin">Admin Panel</a>
+            <%}%>
+        </div>
+        <%if (username) {%>
+        <a href="/user/signout" class="flex items-center gap-3">
+            <img loading="lazy" src="/img/Account_Icon.svg" alt="Sign Out">
+            <span class="sign-in-text ">Sign Out</span>
+        </a>
+        <%}else{%>
+        <a href="/user/signin" class="flex items-center gap-3">
+            <img loading="lazy" src="/img/Account_Icon.svg" alt="Sign In">
+            <span class="sign-in-text ">Sign In</span>
+        </a>
         <%}%>
     </div>
-    <%if (username) {%>
-        <a href="/users/logout"><div class="account-container" data-testid="account-container"><img loading="lazy"
-                src="/img/Account_Icon.svg"
-                alt="" class="account-icon"><span class="sign-in-text ">Log Out</span></div></a>
-    <%}else{%>
-        <a href="/signin"><div class="account-container" data-testid="account-container"><img loading="lazy"
-            src="/img/Account_Icon.svg"
-            alt="" class="account-icon"><span class="sign-in-text ">Sign In</span></div></a>
-    <%}%>
 </header>

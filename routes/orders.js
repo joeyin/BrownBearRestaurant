@@ -31,7 +31,7 @@ router.post('/', isAuthenticated, async (req, res) => {
 router.get('/', isAuthenticated, async (req, res) => {
     try {
         const orders = await Order.find({user:req.session.loggedInUser._id}).populate('product');
-        return res.render("orderList.ejs", { 
+        return res.render("order/orderList.ejs", { 
             username: req.session.loggedInUser.username,
             userType: req.session.loggedInUser.usertype,
             orders: orders
@@ -55,7 +55,7 @@ router.get('/fetch/:id', isAuthenticated, async (req, res) => {
     try {
         const order = await Order.findById(req.params.id).populate('product') ;
         if (!order) return res.status(404).json({ message: 'Order not found' });
-        return res.render("orderReceipt.ejs", { 
+        return res.render("order/orderReceipt.ejs", { 
             username: req.session.loggedInUser.username,
             userType: req.session.loggedInUser.usertype,
             order: order
