@@ -2,28 +2,20 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema(
   {
-    customer: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Customer',
+      ref: 'User',
       required: true
     },
-    products: [
-      {
-        product: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Product',
-          required: true
-        },
-        quantity: {
-          type: Number,
-          required: true
-        },
-        price: {
-          type: Number,
-          required: true
-        },
-      }
-    ],
+    customer_name: {
+      type: String, 
+      required: true
+    },
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product',
+      required: true
+    },
     photo: {
       type: String,
     },
@@ -33,16 +25,10 @@ const orderSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['Pending', 'In Transit', 'Delivered'],
-      default: 'Pending'
+      enum: ['Ready For Delivery', 'In Transit', 'Delivered'],
+      default: 'Ready For Delivery'
     },
-    shippingAddress: {
-      street: { type: String, required: true },
-      city: { type: String, required: true },
-      state: { type: String, required: true },
-      zipCode: { type: String, required: true },
-      country: { type: String, required: true }
-    }
+    shippingAddress: { type: String, required: true }
   },
   { timestamps: true }
 );

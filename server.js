@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const userRoutes = require('./routes/users');
-const deliveryRoutes = require('./routes/delivery');
+const orderRoutes = require('./routes/orders');
+// const deliveryRoutes = require('./routes/delivery');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -28,9 +29,13 @@ mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.error('Error connecting to MongoDB:', err));
 
+// Models
+const Product = require('./models/product');
+
 // Routes
 app.use('/users', userRoutes);
-app.use('/delivery', deliveryRoutes);
+app.use('/orders', orderRoutes);
+// app.use('/delivery', deliveryRoutes);
 
 // Serve static files from the "public" directory
 app.use(express.static('public'));
@@ -55,11 +60,33 @@ app.get("/signup", (req, res) => {
 
 // RESTAURANT_WEBSITE
 //Create a website that customers use to view information about the restaurant and order items.
-app.get("/", (req, res) => {
-    return res.render("restaurant.ejs", { 
-        username: req.session.loggedInUser ? req.session.loggedInUser.username : null,
-        userType: req.session.loggedInUser ? req.session.loggedInUser.usertype : null
-     })
+app.get("/", async (req, res) => {
+    try {
+        let products = await Product.find();
+        return res.render("restaurant.ejs", { 
+            username: req.session.loggedInUser ? req.session.loggedInUser.username : null,
+            userType: req.session.loggedInUser ? req.session.loggedInUser.usertype : null,
+            products: products
+         })
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+    
+})
+
+
+app.get("/orderform/:id", async (req, res) => {
+    try {
+        const id = req.params.id
+        const products = await Product.findById(id);
+        return res.render("orderForm.ejs", { 
+            username: req.session.loggedInUser ? req.session.loggedInUser.username : null,
+            userType: req.session.loggedInUser ? req.session.loggedInUser.usertype : null,
+            product: products
+         })
+    } catch (error) {
+        return res.redirect('/')
+    }
 })
 
 

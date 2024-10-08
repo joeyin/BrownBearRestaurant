@@ -34,15 +34,15 @@
                 <h1 class="kfc-menu-title">MENU</h1>
             </div>
             <div class="menu_items">
-                <% for (i=1; i < 20; i++) {%>
-                    <a href="/order_form/<%=i%>">
+                <% for (let i of products) {%>
+                    <a href="/orderform/<%=i._id%>">
                         <div class="menu_item">
                             <img
-                                src="/img/KFC_CA_Family_Bucket_Feast.png">
+                                src="<%=i.imgsrc%>">
                             <div class="caption">
-                                <h3>Family Bucket Feast</h3>
-                                <p>$49.99</p>
-                                <p>1180 Cals/Person Serves 5</p>
+                                <h3><%=i.name%></h3>
+                                <p>$<%=i.price%></p>
+                                <p><%=i.describtion%></p>
                             </div>
                         </div>
                     </a>
