@@ -1,5 +1,6 @@
 const express = require("express");
 const multer = require("multer");
+const isAuthenticated = require("../isAuthenticated");
 
 const router = express.Router();
 const storage = multer.diskStorage({
@@ -22,19 +23,15 @@ const findOrders = async (parameters = {}) => {
   const orders = _orders.map((order) => order.toObject());
   for (let order of orders) {
     order.customer = await User.findById(order.customer); // Add customer details
-    for (let i = 0; i < order.products.length; i++) {
-      order.products[i] = {
-        ...(await Product.findById(order.products[i].product)).toObject(), // Add product details
-        quantity: order.products[i].quantity,
-      };
-    }
+    order.product = await Product.findById(order.product); // Add product details
   }
   return orders;
 };
 
-router.get("/", async (req, res) => {
+router.get("/", isAuthenticated, async (req, res) => {
   try {
-    const orders = await findOrders({ status: "Pending" });
+    const orders = await findOrders({ status: "Ready For Delivery" });
+    console.log(orders)
     return res.render("../views/delivery/index.ejs", {
       orders,
       username: req.session.loggedInUser
@@ -49,7 +46,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/shippings", async (req, res) => {
+router.get("/shippings", isAuthenticated, async (req, res) => {
   try {
     const orders = await findOrders({ status: "In Transit" });
     return res.render("../views/delivery/index.ejs", {
@@ -66,7 +63,7 @@ router.get("/shippings", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", isAuthenticated, async (req, res) => {
   try {
     const order = await findOrders({ _id: req.params.id });
     res.render("../views/delivery/detail.ejs", {
@@ -83,7 +80,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/:id", upload.single("photo"), async (req, res) => {
+router.post("/:id", isAuthenticated, upload.single("photo"), async (req, res) => {
   try {
     const file = req.file;
     console.log(file)

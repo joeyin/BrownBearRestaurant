@@ -71,7 +71,7 @@ router.post('/signin', async (req, res) => {
     }
 });
 
-router.get("/logout", (req, res) => {
+router.get("/signout", (req, res) => {
     // delete the entire session
     req.session.destroy()
     return res.redirect("/")
