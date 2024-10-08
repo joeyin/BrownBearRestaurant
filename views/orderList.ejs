@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KFC</title>
+    <title>KFC Orders</title>
     <link rel="icon" href="/img/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/css/orderList.css">
     <link rel="stylesheet" type="text/css" href="/css/header.css">
@@ -12,21 +12,56 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
     <%- include('partials/header') %>
     <div class="container">
-        <ul>
-        <% for (let i of orders) {%>
-            <a href="/orders/fetch/<%=i._id%>"><li><%=i._id%></li></a>
-        <%}%>
-        </ul>
+        <!-- Search Section -->
+        <div class="search-section">
+            <h1>Search for Your Order</h1>
+            <form action="/orders/search" method="GET">
+                <input type="text" name="orderId" placeholder="Enter Order number" required>
+                <button type="submit" class="search-btn">Search</button>
+            </form>
+        </div>
+
+        <!-- Orders List Table -->
+        <div class="orders-list">
+            <h2>History Orders</h2>
+            <table class="order-table">
+                <thead>
+                    <tr>
+                        <th>Order Number</th>
+                        <th>Product Name</th>
+                        <th>Status</th>
+                        <th>Order Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let i of orders) { %>
+                    <tr>
+                        <td><a href="/orders/fetch/<%= i._id %>"><%= i._id %></a></td>
+                        <td><%= i.product.name %></td>
+                        <td><%= i.status %></td>
+                        <td><%= new Date(i.createdAt).toLocaleString('en-US', { 
+                            weekday: 'short', 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric', 
+                            hour: '2-digit', 
+                            minute: '2-digit', 
+                            hour12: true 
+                        }) %></td> <!-- You can format date further if needed -->
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
     </div>
     <%- include('partials/footer') %>
-    </div>
 </body>
 
 </html>

@@ -2,8 +2,16 @@ const express = require('express');
 const router = express.Router();
 const Order = require('../models/order');
 
+function isAuthenticated(req, res, next) {
+    if (req.session.hasOwnProperty("loggedInUser")) {
+        return next();
+    } else {
+        res.redirect("/signin")
+    }
+}
+
 // Create a new order
-router.post('/', async (req, res) => {
+router.post('/', isAuthenticated, async (req, res) => {
     try {
         const order = new Order({
             user: req.session.loggedInUser._id,
@@ -20,12 +28,12 @@ router.post('/', async (req, res) => {
 });
 
 // Get all orders
-router.get('/', async (req, res) => {
+router.get('/', isAuthenticated, async (req, res) => {
     try {
-        const orders = await Order.find({user:req.session.loggedInUser._id});
+        const orders = await Order.find({user:req.session.loggedInUser._id}).populate('product');
         return res.render("orderList.ejs", { 
-            username: req.session.loggedInUser ? req.session.loggedInUser.username : null,
-            userType: req.session.loggedInUser ? req.session.loggedInUser.usertype : null,
+            username: req.session.loggedInUser.username,
+            userType: req.session.loggedInUser.usertype,
             orders: orders
          })
     } catch (error) {
@@ -33,14 +41,23 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/search', isAuthenticated, async (req, res) => {
+    try {
+        const order = await Order.findById(req.query.orderId);
+        return res.redirect(`/orders/fetch/${order._id}`)
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Get a single order
-router.get('/fetch/:id', async (req, res) => {
+router.get('/fetch/:id', isAuthenticated, async (req, res) => {
     try {
         const order = await Order.findById(req.params.id).populate('product') ;
         if (!order) return res.status(404).json({ message: 'Order not found' });
         return res.render("orderReceipt.ejs", { 
-            username: req.session.loggedInUser ? req.session.loggedInUser.username : null,
-            userType: req.session.loggedInUser ? req.session.loggedInUser.usertype : null,
+            username: req.session.loggedInUser.username,
+            userType: req.session.loggedInUser.usertype,
             order: order
          })
     } catch (error) {
@@ -49,11 +66,13 @@ router.get('/fetch/:id', async (req, res) => {
 });
 
 // Update a order
-router.put('/:id', async (req, res) => {
+router.post('/update', async (req, res) => {
     try {
-        const order = await Order.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const statusUpdate = req.body.order_status
+        const id = req.body.order_id
+        const order = await Order.findByIdAndUpdate(id, {status: statusUpdate}, { new: true });
         if (!order) return res.status(404).json({ message: 'Order not found' });
-        res.json(order);
+        return res.redirect('/admin')
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KFC Orders</title>
+    <link rel="icon" href="/img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/css/orderProcessing.css">
+    <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/footer.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <%- include('partials/header') %>
+    <div class="container">
+        <div class="search-section">
+            <h1>Search for Specific Cutomer</h1>
+            <form action="/admin" method="GET">
+                <input type="text" name="customer_name" placeholder="Enter Customer Name" required>
+                <button type="submit" class="search-btn">Search</button>
+            </form>
+        </div>
+        <div class="orders-list">
+            <div class="filter_buttons">
+                <button onclick="addOrderStatusQuery('Delivered')" class="add-status-btn">Show Completed Orders</button>
+                <button onclick="clearOrderStatus()" class="add-status-btn">Show All Orders</button>
+                <button onclick="clearCustomerFilter()" class="add-status-btn">Clear Customer Name Filter</button>
+            </div>
+            <h2><%if(status == 'Delivered'){%>Completed <%} else {%>All <%}%>of Orders <%if(customer_search){%>of <%=customer_search%><%}%></h2>
+            <table class="order-table">
+                <thead>
+                    <tr>
+                        <th>Order Number</th>
+                        <th>Customer Name</th>
+                        <th>Delivery Address</th>
+                        <th>Order Date</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                        <th>Driver Name</th>
+                        <th>Driver License Plate</th>
+                        <th>Proof Photo</th>
+                        <th>Update Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let i of orders) { %>
+                    <tr>
+                        <td><a href="/orders/fetch/<%= i._id %>"><%= i._id %></a></td>
+                        <td><%= i.customer_name %></td>
+                        <td><%= i.shippingAddress %></td>
+                        <td><%= new Date(i.createdAt).toLocaleString('en-US', { 
+                            weekday: 'short', 
+                            year: 'numeric', 
+                            month: 'short', 
+                            day: 'numeric', 
+                            hour: '2-digit', 
+                            minute: '2-digit', 
+                            hour12: true 
+                        }) %></td>
+                        <td>$<%= i.totalAmount %></td>
+                        <td><%= i.status %></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="operate">
+                            <form action="/orders/update" method="POST">
+                                <input name="order_id" type="text" value="<%=i._id%>" style="display: none;">
+                                <select id="order_status" name="order_status" required>
+                                    <option value="Ready For Delivery">Ready For Delivery</option>
+                                    <option value="In Transit">In Transit</option>
+                                    <option value="Delivered">Delivered</option>
+                                </select>
+                                <button type="submit" class="btn-submit">Update Status</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    
+    </div>
+    <%- include('partials/footer') %>
+    <script>
+        function addOrderStatusQuery(newStatus) {
+            const currentUrl = window.location.href;
+            const url = new URL(currentUrl);
+            url.searchParams.set('status', newStatus);
+            window.location.href = url.toString();
+        }
+        function clearOrderStatus() {
+            const currentUrl = window.location.href;
+            const url = new URL(currentUrl);
+            url.searchParams.delete('status');
+            window.location.href = url.toString();
+        }
+        function clearCustomerFilter() {
+            const currentUrl = window.location.href;
+            const url = new URL(currentUrl);
+            url.searchParams.delete('customer_name');
+            window.location.href = url.toString();
+        }
+    </script>
+</body>
+
+</html>
