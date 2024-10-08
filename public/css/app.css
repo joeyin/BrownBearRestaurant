@@ -2,6 +2,7 @@
   --primary: #e4002b;
   --secondary: #13181f;
   --white: #fff;
+  --gray: #ccc;
   --black: #000;
   --dark: #202124;
 
@@ -51,6 +52,36 @@ button.primary:hover {
   background-color: #E03E00;
 }
 
+.form-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 300;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #333;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--gray);
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #E03E00; /* Accent color */
+}
+
 main {
   min-height: calc(100vh - var(--header-height) - var(--footer-height));
   padding: 0 0 35px;
@@ -75,6 +106,10 @@ main > .container > .header {
 
 .flex {
   display: flex;
+}
+
+.block {
+  display: block;
 }
 
 .flex-col {
@@ -259,6 +294,10 @@ main > .container > .header {
 
 .text-center {
   text-align: center;
+}
+
+.max-w-\[600px\] {
+  max-width: 600px;
 }
 
 @media only screen and (min-width: 768px) {
