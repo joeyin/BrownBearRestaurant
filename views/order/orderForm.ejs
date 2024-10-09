@@ -17,7 +17,7 @@
     <%- include('../partials/header') %>
     <main>
         <div class="container">
-            <h1 class="header">Order</h1>
+            <h1 class="header">Place an Order</h1>
             <div class="flex items-center flex-col lg-flex-row rounded-2xl shadow-sm p-5">
                 <div class="flex-1">
                     <img width="100%" src="<%=product.imgsrc%>" alt="Family Bucket Feast" class="meal-image">
@@ -31,15 +31,16 @@
                     <p>
                         <%=product.describtion%>
                     </p>
+                    <br>
                     <form action="/orders" method="POST">
                         <h1>Delivery Info:</h1>
                         <div class="form-group">
-                            <label for=" customer_name"> recipient name:</label>
+                            <label for="customer_name">Recipient Name:</label>
                             <input type="text" id="customer_name" name="customer_name" required
                                 placeholder="Enter recipient name" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for=" delivery_addres"> delivery addres:</label>
+                            <label for="delivery_addres">Delivery Address:</label>
                             <input type="text" id="delivery_addres" name="delivery_addres" required
                                 placeholder="Enter delivery addres" class="form-control">
                         </div>

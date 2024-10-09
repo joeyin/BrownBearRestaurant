@@ -17,18 +17,16 @@
     <%- include('../partials/header') %>
     <main>
         <div class="container">
-            <h1 class="header">Orders</h1>
+            <h1 class="header">History Orders</h1>
             <!-- Search Section -->
-            <div class="search-section">
-                <h1>Search for Your Order</h1>
-                <form action="/orders/search" method="GET">
-                    <input type="text" name="orderId" placeholder="Enter Order number" required>
-                    <button type="submit" class="search-btn">Search</button>
-                </form>
-            </div>
+            <form action="/orders/search" method="GET" class="filter-bar">
+                <div class="form-group flex gap-5">
+                    <input type="text" id="orderId" name="orderId" placeholder="Enter Order number" required>
+                    <button type="submit" class="large primary text-white">Search</button>
+                </div>
+            </form>
             <!-- Orders List Table -->
             <div class="orders-list">
-                <h2>History Orders</h2>
                 <table class="order-table">
                     <thead>
                         <tr>

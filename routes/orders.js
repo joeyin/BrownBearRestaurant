@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+
+const Product = require("../models/product");
 const Order = require("../models/order");
 const User = require("../models/user");
 const isAuthenticated = require("../isAuthenticated");
@@ -7,12 +9,14 @@ const isAuthenticated = require("../isAuthenticated");
 // Create a new order
 router.post("/", isAuthenticated, async (req, res) => {
   try {
+    const product = await Product.findOne({ _id: req.body.product_id });
+    if (!product) return res.status(404).json({ message: "Product not found" });
     const order = new Order({
       user: req.session.loggedInUser._id,
       customer_name: req.body.customer_name,
       product: req.body.product_id,
       shippingAddress: req.body.delivery_addres,
-      totalAmount: req.body.total_amount,
+      totalAmount: product.price,
     });
     await order.save();
     res.redirect(`/orders/fetch/${order._id}`);

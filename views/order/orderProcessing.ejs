@@ -16,27 +16,22 @@
 <body>
     <%- include('../partials/header') %>
     <main>
-        <div class="container">
-            <div class="search-section">
-                <h1>Search for Specific Cutomer</h1>
-                <form action="/admin" method="GET">
-                    <input type="text" name="customer_name" placeholder="Enter Customer Name" required>
-                    <button type="submit" class="search-btn">Search</button>
-                </form>
-            </div>
+        <div class="container p-5">
             <div class="orders-list">
-                <div class="filter_buttons">
-                    <button onclick="addOrderStatusQuery('Delivered')" class="add-status-btn">Show Completed
-                        Orders</button>
-                    <button onclick="clearOrderStatus()" class="add-status-btn">Show All Orders</button>
-                    <button onclick="clearCustomerFilter()" class="add-status-btn">Clear Customer Name
-                        Filter</button>
+                <div class="tab flex">
+                    <button onclick="addOrderStatusQuery('Delivered')" class="<%= status === 'Delivered' ? 'active' : '' %>">Show Completed</button>
+                    <button onclick="clearOrderStatus()" class="<%= status !== 'Delivered' ? 'active' : '' %>">Show All Orders</button>
                 </div>
-                <h2>
-                    <%if(status=='Delivered' ){%>Completed <%} else {%>All <%}%>of Orders <%if(customer_search){%>of
-                                    <%=customer_search%>
-                                        <%}%>
-                </h2>
+
+                <!-- <h1>Search for Specific Cutomer</h1> -->
+                <form action="/admin" method="GET" class="filter-bar">
+                    <div class="form-group flex gap-5">
+                        <input type="text" name="customer_name" placeholder="Enter Customer Name" required>
+                        <button type="submit" class="small primary text-white">Search</button>
+                        <button onclick="clearCustomerFilter()" class="small default">Clear</button>
+                    </div>
+                </form>
+
                 <table class="order-table">
                     <thead>
                         <tr>
@@ -47,8 +42,6 @@
                             <th>Total Amount</th>
                             <th>Status</th>
                             <th>Driver Name</th>
-                            <!-- <th>Driver License Plate</th>
-                            <th>Proof Photo</th> -->
                             <th>Update Status</th>
                         </tr>
                     </thead>
@@ -75,12 +68,6 @@
                                     <%= i.status %>
                                 </td>
                                 <td><%= (i.status !== "Ready For Delivery") ? i?.driver?.username : "" %></td>
-                                <!-- <td><%= (i.status !== "Ready For Delivery") ? i?.driver?.license : "" %></td>
-                                <td>
-                                    <% if (i.status !== "Ready For Delivery") { %>
-                                        <img width="100%" src="<%= i.photo %>" alt="Driver Photo">
-                                    <% } %>
-                                </td> -->
                                 <td class="operate">
                                     <form action="/orders/update" method="POST">
                                         <input name="order_id" type="text" value="<%=i._id%>"

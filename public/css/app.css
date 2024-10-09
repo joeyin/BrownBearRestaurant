@@ -34,8 +34,18 @@ html, body {
   font-style: normal;
 }
 
+button.small {
+  padding: 6px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color .3s ease;
+}
+
 button.large {
-  padding: 12px;
+  padding: 12px 18px;
   font-size: 18px;
   font-weight: 500;
   border: none;
@@ -50,6 +60,24 @@ button.primary {
 
 button.primary:hover {
   background-color: #E03E00;
+}
+
+button.secondary {
+  background-color: var(--secondary);
+}
+
+button.secondary:hover {
+  background-color: #000000;
+}
+
+button.default {
+  background-color: var(--white);
+  border: 1px solid var(--secondary);
+}
+
+button.default:hover {
+  background-color: var(--secondary);
+  color: var(--white);
 }
 
 .form-group {
@@ -341,8 +369,12 @@ footer nav a:not(:first-child):before {
   border-bottom: 1px solid #ccc;;
 }
 
-.tab a {
+.tab a,
+.tab button {
   padding: 15px 20px;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .tab .active {
@@ -375,4 +407,10 @@ table td {
   text-align: left;
   border-bottom: 1px solid #eee;
   font-size: 16px;
+}
+
+.filter-bar {
+  width: 600px;
+  margin: 20px 0 0;
+  float: right;
 }
