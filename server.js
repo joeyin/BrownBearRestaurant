@@ -8,6 +8,7 @@ const isAuthenticated = require("./isAuthenticated");
 const userRoutes = require("./routes/user");
 const orderRoutes = require("./routes/orders");
 const deliveryRoutes = require('./routes/delivery');
+const User = require("./models/user");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -94,6 +95,9 @@ app.get("/admin", isAuthenticatedAdmin, async (req, res) => {
       find_by.status = req.query.status;
     }
     const orders = await Order.find(find_by).populate("product");
+    for (let order of orders) {
+        order.driver = await User.findById(order.driver); // Add driver details
+    }
     return res.render("order/orderProcessing.ejs", {
       username: req.session.loggedInUser.username,
       userType: req.session.loggedInUser.usertype,

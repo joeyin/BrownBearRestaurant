@@ -47,8 +47,8 @@
                             <th>Total Amount</th>
                             <th>Status</th>
                             <th>Driver Name</th>
-                            <th>Driver License Plate</th>
-                            <th>Proof Photo</th>
+                            <!-- <th>Driver License Plate</th>
+                            <th>Proof Photo</th> -->
                             <th>Update Status</th>
                         </tr>
                     </thead>
@@ -74,9 +74,13 @@
                                 <td>
                                     <%= i.status %>
                                 </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><%= (i.status !== "Ready For Delivery") ? i?.driver?.username : "" %></td>
+                                <!-- <td><%= (i.status !== "Ready For Delivery") ? i?.driver?.license : "" %></td>
+                                <td>
+                                    <% if (i.status !== "Ready For Delivery") { %>
+                                        <img width="100%" src="<%= i.photo %>" alt="Driver Photo">
+                                    <% } %>
+                                </td> -->
                                 <td class="operate">
                                     <form action="/orders/update" method="POST">
                                         <input name="order_id" type="text" value="<%=i._id%>"

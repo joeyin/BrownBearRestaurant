@@ -37,10 +37,14 @@
                     </div>
                     <div class="form-group">
                         <label for="re_password">User Type:</label>
-                        <select id="userType" name="userType" required>
+                        <select id="userType" name="userType" required onchange="onUserTypeChange()">
                             <option value="customer">Customer</option>
                             <option value="deliveryman">Deliveryman</option>
                         </select>
+                    </div>
+                    <div class="form-group form-group-license hidden">
+                        <label for="license">License Plate:</label>
+                        <input id="license" name="license" class="form-control">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="large primary text-white w-full">Sign In</button>
@@ -61,6 +65,20 @@
             if (message) {
                 alert(message);
             }
+
+            function onUserTypeChange() {
+                const userType = document.getElementById("userType");
+                const licenseFormControl = document.querySelector(".form-group-license");
+                const license = document.getElementById("license");
+                if (userType.value === "deliveryman") {
+                    licenseFormControl.classList.remove("hidden");
+                    license.setAttribute("required", true);
+                } else {
+                    licenseFormControl.classList.add("hidden");
+                    license.removeAttribute("required");
+                }
+            }
+
         </script>
 </body>
 

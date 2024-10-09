@@ -40,6 +40,19 @@
                     <p><strong>Status:</strong>
                         <%=order.status%>
                     </p>
+                    <% if(order.status !== "Ready For Delivery"){ %>
+                    <p><strong>Driver Name:</strong>
+                        <%=order?.driver?.username%>
+                    </p>
+                    <p><strong>License Plate:</strong>
+                        <%=order.driver.license%>
+                    </p>
+                    <% } %>
+                    <% if(order.status === "Delivered"){ %>
+                    <p><strong>Photo:</strong>
+                        <img width="100%" src="<%= order.photo %>" alt="Photo">
+                    </p>
+                    <% } %>
                     <p><strong>Recipient Name:</strong>
                         <%=order.customer_name%>
                     </p>

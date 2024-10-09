@@ -41,7 +41,8 @@ router.post('/signup', async (req, res) => {
         const user = new User({
             username: inputUsername,
             password: inputPwd,
-            usertype: req.body.userType
+            usertype: req.body.userType,
+            ...(req.body.userType === "deliveryman" ? { license: req.body.license } : null),
         });
         await user.save();
         req.session.loggedInUser = user
@@ -67,7 +68,7 @@ router.post('/signin', async (req, res) => {
         req.session.loggedInUser = userFromDB
         return res.redirect("/")
     } catch (err) {
-        return res.redirect(`/signin?message=${err.message}`);
+        return res.redirect(`/user/signin?message=${err.message}`);
     }
 });
 

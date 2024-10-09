@@ -300,6 +300,10 @@ main > .container > .header {
   max-width: 600px;
 }
 
+.hidden {
+  display: none;
+}
+
 @media only screen and (min-width: 768px) {
   .md-flex-1  {
     flex: 1;

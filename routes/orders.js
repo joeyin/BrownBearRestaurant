@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Order = require("../models/order");
+const User = require("../models/user");
 const isAuthenticated = require("../isAuthenticated");
 
 // Create a new order
@@ -50,6 +51,7 @@ router.get("/fetch/:id", isAuthenticated, async (req, res) => {
   try {
     const order = await Order.findById(req.params.id).populate("product");
     if (!order) return res.status(404).json({ message: "Order not found" });
+    order.driver = await User.findById(order.driver); // Add driver details
     return res.render("order/orderReceipt.ejs", {
       username: req.session.loggedInUser.username,
       userType: req.session.loggedInUser.usertype,
