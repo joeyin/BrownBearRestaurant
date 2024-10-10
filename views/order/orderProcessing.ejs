@@ -73,9 +73,9 @@
                                         <input name="order_id" type="text" value="<%=i._id%>"
                                             style="display: none;">
                                         <select id="order_status" name="order_status" required>
-                                            <option value="Ready For Delivery">Ready For Delivery</option>
-                                            <option value="In Transit">In Transit</option>
-                                            <option value="Delivered">Delivered</option>
+                                            <option value="Ready For Delivery" <%= i.status === 'Ready For Delivery' ? 'selected' : '' %>>Ready For Delivery</option>
+                                            <option value="In Transit" <%= i.status === 'In Transit' ? 'selected' : '' %>>In Transit</option>
+                                            <option value="Delivered" <%= i.status === 'Delivered' ? 'selected' : '' %>>Delivered</option>
                                         </select>
                                         <button type="submit" class="btn-submit">Update Status</button>
                                     </form>
