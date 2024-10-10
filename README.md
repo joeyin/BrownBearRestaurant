@@ -1,4 +1,8 @@
-# Prerequisites
+# Fake KFC
+
+**Team Members:** Jesse, Chi-wei
+
+## Prerequisites
 
 Make sure you have the following installed:
 
@@ -8,33 +12,35 @@ Make sure you have the following installed:
 
 • npm (comes with Node.js)
 
-# Getting Started
-Install packages:
+## Setup
+1. Install the required packages:
 
 ```
 npm install
 ```
 
-## Setting basic info
-edit .env file in the root directory
+2. Configure the `.env` file in the root directory.
 
-default is my MONGODB_URI, it will connect to my cluster. And PORT means which port your server will running
+- The default values connect to our MongoDB cluster.
+- PORT means which port your server will running.
+
 ```
 MONGODB_URI="mongodb+srv://jesse:wzx_1999112@cluster0.5gm0o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/test"
 PORT="8080"
 ```
 
-## Running the Application
-1.Seed the database with initial data (optional):
+## Running the App
+1. Seed the database with initial data (optional):
 ```
 node seedData.js
 ```
 
-2.Start the server
+2. Start the server:
 ```
-npx nodemon server.js
+npm run dev
 ```
-3.The server will run at http://localhost:8080.
+
+3. The server will run at http://localhost:8080.
 
 ## Project Structure
 ```
