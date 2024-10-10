@@ -20,19 +20,20 @@ const seedData = async () => {
         // Create users
         await User.create([
             {
-                username: 'admin@test.com',
-                password: 'admin',
+                username: 'admin@gmail.com',
+                password: '12345678',
                 usertype: "admin"
             },
             {
-                username: 'customer@test.com',
-                password: 'customer',
+                username: 'user@gmail.com',
+                password: '12345678',
                 usertype: "customer"
             },
             {
-                username: 'deliveryman@test.com',
-                password: 'deliveryman',
-                usertype: "deliveryman"
+                username: 'driver@gmail.com',
+                password: '12345678',
+                usertype: "deliveryman",
+                license: "DXD-8888"
             },
         ]);
         await Product.create([
